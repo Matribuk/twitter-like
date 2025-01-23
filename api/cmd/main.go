@@ -2,34 +2,31 @@ package main
 
 import (
 	"api/config"
-	"database/sql"
-	"fmt"
+	"api/routes"
+	"api/storage"
 	"log"
+	"time"
 
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
 
 func main() {
-	config := config.ConfigLoad()
+	config.ConfigLoad()
 
-	log.Printf("Connexion à la base de données : %s:%s (DB: %s)", config.DBHost, config.DBPort, config.DBName)
+	storage.ConnectToDatabase()
+	router := gin.Default()
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowAllOrigins = true
+	corsConfig.AllowMethods = []string{"POST", "GET", "PUT", "DELETE"}
+	corsConfig.AllowHeaders = []string{"Origin", "Content-Type", "Authorization", "Accept", "User-Agent"}
+	corsConfig.AllowCredentials = true
+	corsConfig.MaxAge = 12 * time.Hour
+	router.Use(cors.New(corsConfig))
+	routes.InitRoutes(router)
 
-	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		config.DBHost,
-		config.DBPort,
-		config.DBUser,
-		config.DBPassword,
-		config.DBName)
-
-	db, err := sql.Open("postgres", connStr)
-	if err != nil {
-		log.Fatalf("Erreur lors de la connexion à la base de données: %v", err)
-	}
-	defer db.Close()
-
-	err = db.Ping()
-	if err != nil {
-		log.Fatalf("Impossible de se connecter à la base de données: %v", err)
-	}
-	fmt.Println("Connexion réussie à la base de données !")
+	port := config.Config.Api.Port
+	log.Printf("Starting server on port %s...", port)
+	router.Run(":" + port)
 }

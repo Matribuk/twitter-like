@@ -15,7 +15,7 @@ type ConfigDatabase struct {
 	DBName     string
 }
 
-func ConfigLoad() ConfigDatabase {
+func ConfigDatabaseLoad() ConfigDatabase {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatalf("Erreur lors du chargement des variables d'environnement: %v", err)
