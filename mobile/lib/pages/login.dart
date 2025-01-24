@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/login.dart';
 import 'package:mobile/widgets/loginRegister/entryField.dart';
 import 'package:mobile/widgets/navbar.dart';
+import 'package:mobile/widgets/submit.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -35,13 +35,9 @@ class LoginPage extends StatelessWidget {
                 prefixIcon: const Icon(Icons.lock),
               ),
               const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  final email = emailController.text;
-                  final password = passwordController.text;
-                  if (kDebugMode) print(handleLogin(email, password));
-                },
-                child: const Text('Submit'),
+              SubmitButton(
+                handleAction: handleLogin,
+                paramsController: [emailController, passwordController],
               ),
             ],
           ),

@@ -6,11 +6,16 @@ import 'package:mobile/components/api.dart';
 import 'package:mobile/components/token.dart';
 import 'package:mobile/models/register.dart';
 
-Future<bool> handleRegister(String userMail, String userPassword, String userNickname) async {
+Future<bool> handleRegister(List<String> params) async {
+  final userMail = params[0];
+  final userPassword = params[1];
+  final userNickname = params[2];
+
   final registerData = Register(userMail: userMail, userPassword: userPassword, userNickname: userNickname);
   final apiUrl = dotenv.env['API_URL'] ?? '';
   final apiEndpointRegister = dotenv.env['API_ENDPOINT_REGISTER'] ?? '';
   final apiUrlWithEndpoint = apiUrl + apiEndpointRegister;
+  if (kDebugMode) print(apiUrlWithEndpoint);
   final response = await sendData(registerData.toJson(), apiUrlWithEndpoint);
 
   if (response.$1 == 200) {

@@ -12,7 +12,7 @@ func RegisterUser(username string, email string, hashedPassword string) (int, er
 		return -1, err
 	}
 
-	request, err := requestBegin.Prepare("INSERT INTO users (email, nickname, password) VALUES (?, ?, ?) RETURNING id")
+	request, err := requestBegin.Prepare("INSERT INTO users (email, nickname, password) VALUES ($1, $2, $3) RETURNING id")
 	if err != nil {
 		return -1, err
 	}
@@ -33,7 +33,7 @@ func RegisterUser(username string, email string, hashedPassword string) (int, er
 func LoginUser(email string, password string) (int, error) {
 	var id int
 	var hashedPassword string
-	err := Database.QueryRow("SELECT id, password FROM users WHERE email = ?", email).Scan(&id, &hashedPassword)
+	err := Database.QueryRow("SELECT id, password FROM users WHERE email = $1", email).Scan(&id, &hashedPassword)
 	if err != nil {
 		return -1, err
 	}

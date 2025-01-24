@@ -11,9 +11,9 @@ class Register {
 
   Map<String, dynamic> toJson() {
     return {
-      'userMail': userMail,
-      'userNickname': userNickname,
-      'userPassword': userPassword,
+      'email': userMail,
+      'username': userNickname,
+      'password': userPassword,
     };
   }
 }

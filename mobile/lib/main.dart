@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mobile/components/token.dart';
 import 'package:mobile/pages/home.dart';
 import 'package:mobile/pages/login.dart';
 import 'package:mobile/pages/register.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
+  deleteToken();
   runApp(const MyApp());
 }
 

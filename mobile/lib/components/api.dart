@@ -8,6 +8,9 @@ Future<(int, String)> sendData<T>(T data, String apiUrl) async {
 
   try {
     final body = json.encode(data);
+    if (kDebugMode) print('Body : $body');
+    if (kDebugMode) print('Headers : $headers');
+    if (kDebugMode) print('URL : $url');
     final response = await http.post(
       url,
       headers: headers,

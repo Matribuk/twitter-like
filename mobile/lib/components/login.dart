@@ -6,7 +6,10 @@ import 'package:mobile/components/api.dart';
 import 'package:mobile/components/token.dart';
 import 'package:mobile/models/login.dart';
 
-Future<bool> handleLogin(String userMail, String userPassword) async {
+Future<bool> handleLogin(List<String> params) async {
+  final userMail = params[0];
+  final userPassword = params[1];
+
   final loginData = Login(userMail: userMail, userPassword: userPassword);
   final apiUrl = dotenv.env['API_URL'] ?? '';
   final apiEndpointLogin = dotenv.env['API_ENDPOINT_LOGIN'] ?? '';

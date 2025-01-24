@@ -24,7 +24,6 @@ func ConnectToDatabase() {
 	if err != nil {
 		log.Fatalf("Erreur lors de la connexion à la base de données: %v", err)
 	}
-	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
