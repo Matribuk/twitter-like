@@ -4,6 +4,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func HomeRoutes(router *gin.Engine) {
+	homeRoutes := router.Group("/chat")
+	{
+		homeRoutes.POST("/get", GetChat)
+		homeRoutes.POST("/send", SendChat)
+	}
+}
+
 func UserRoutes(router *gin.Engine) {
 	userRoutes := router.Group("/users")
 	{
@@ -14,4 +22,5 @@ func UserRoutes(router *gin.Engine) {
 
 func InitRoutes(router *gin.Engine) {
 	UserRoutes(router)
+	HomeRoutes(router)
 }
