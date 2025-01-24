@@ -5,5 +5,16 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE chats (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 INSERT INTO users (email, nickname, password)
 VALUES ('admin@example.com', 'administrator', 'admin123');
+
+INSERT INTO chats (user_id, message)
+VALUES (1, 'Hello, world!');
