@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:mobile/components/token.dart';
 import 'package:mobile/pages/home.dart';
 import 'package:mobile/pages/login.dart';
 import 'package:mobile/pages/register.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
-  deleteToken();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  // This widget is the root of your application.12345
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/login',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => const HomePage(),
+        '/home': (context) => const HomePage(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
@@ -43,7 +41,7 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
     );

@@ -1,11 +1,13 @@
 package routes
 
 import (
+	"api/middlewares"
+
 	"github.com/gin-gonic/gin"
 )
 
 func HomeRoutes(router *gin.Engine) {
-	homeRoutes := router.Group("/chat")
+	homeRoutes := router.Group("/chat", middlewares.VerifyToken)
 	{
 		homeRoutes.POST("/get", GetChat)
 		homeRoutes.POST("/send", SendChat)

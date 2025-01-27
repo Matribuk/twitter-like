@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/login.dart';
-import 'package:mobile/widgets/loginRegister/entryField.dart';
+import 'package:mobile/widgets/entryField.dart';
 import 'package:mobile/widgets/navbar.dart';
 import 'package:mobile/widgets/submit.dart';
 

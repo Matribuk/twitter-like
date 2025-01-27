@@ -5,7 +5,7 @@ import "api/models"
 func GetChat(actualIndex int) ([]models.Chat, error) {
 	var chats []models.Chat
 
-	rows, err := Database.Query("SELECT message, user_id, created_at FROM chats ORDER BY id LIMIT 10 OFFSET $1", actualIndex)
+	rows, err := Database.Query("SELECT chats.message, chats.user_id, chats.created_at, users.url_image, users.nickname FROM chats INNER JOIN users ON chats.user_id = users.id ORDER BY chats.id LIMIT 10 OFFSET $1", actualIndex)
 	if err != nil {
 		return nil, err
 	}
@@ -14,8 +14,10 @@ func GetChat(actualIndex int) ([]models.Chat, error) {
 		var message string
 		var userID int
 		var createdAt string
+		var urlImage string
+		var userName string
 
-		err := rows.Scan(&message, &userID, &createdAt)
+		err := rows.Scan(&message, &userID, &createdAt, &urlImage, &userName)
 		if err != nil {
 			return nil, err
 		}
@@ -23,6 +25,8 @@ func GetChat(actualIndex int) ([]models.Chat, error) {
 			Message:  message,
 			UserID:   userID,
 			CreateAt: createdAt,
+			UrlImage: urlImage,
+			UserName: userName,
 		})
 	}
 	if err := rows.Err(); err != nil {
@@ -32,7 +36,7 @@ func GetChat(actualIndex int) ([]models.Chat, error) {
 	return chats, nil
 }
 
-func SendChat(chat models.ChatSendRequest) error {
+func SendChat(chat models.ChatSendRequest, id_client int) error {
 	requestBegin, err := Database.Begin()
 	if err != nil {
 		return err
@@ -44,7 +48,7 @@ func SendChat(chat models.ChatSendRequest) error {
 	}
 	defer request.Close()
 
-	_, err = request.Exec(chat.UserID, chat.Message)
+	_, err = request.Exec(id_client, chat.Message)
 	if err != nil {
 		requestBegin.Rollback()
 		return err

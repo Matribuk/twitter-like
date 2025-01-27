@@ -5,20 +5,20 @@ import (
 	"errors"
 )
 
-func RegisterUser(username string, email string, hashedPassword string) (int, error) {
+func RegisterUser(username string, email string, hashedPassword string, urlImage string) (int, error) {
 	var id int
 	requestBegin, err := Database.Begin()
 	if err != nil {
 		return -1, err
 	}
 
-	request, err := requestBegin.Prepare("INSERT INTO users (email, nickname, password) VALUES ($1, $2, $3) RETURNING id")
+	request, err := requestBegin.Prepare("INSERT INTO users (email, nickname, password, url_image) VALUES ($1, $2, $3, $4) RETURNING id")
 	if err != nil {
 		return -1, err
 	}
 	defer request.Close()
 
-	err = request.QueryRow(email, username, hashedPassword).Scan(&id)
+	err = request.QueryRow(email, username, hashedPassword, urlImage).Scan(&id)
 	if err != nil {
 		return -1, err
 	}

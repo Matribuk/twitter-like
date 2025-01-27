@@ -18,7 +18,7 @@ func RegisterUser(c *gin.Context) (map[string]string, int) {
 	hashedPassword, _ := utils.GenerateHash(user.Password)
 	user.Password = hashedPassword
 
-	userID, err := storage.RegisterUser(user.Username, user.Email, user.Password)
+	userID, err := storage.RegisterUser(user.Username, user.Email, user.Password, user.UrlImage)
 	if err != nil {
 		return map[string]string{"error": err.Error()}, http.StatusInternalServerError
 	}
