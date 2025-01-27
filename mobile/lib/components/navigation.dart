@@ -7,8 +7,8 @@ import 'package:mobile/pages/register.dart';
 Route _createRoute(String routeName) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) {
-      if (routeName == '/') {
-        return const HomePage();
+      if (routeName == '/home') {
+        return HomePage();
       } else if (routeName == '/login') {
         return LoginPage();
       } else if (routeName == '/register') {

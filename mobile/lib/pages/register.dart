@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/register.dart';
-import 'package:mobile/widgets/loginRegister/entryField.dart';
+import 'package:mobile/widgets/entryField.dart';
 import 'package:mobile/widgets/navbar.dart';
 import 'package:mobile/widgets/submit.dart';
 
@@ -11,6 +11,7 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nicknameController = TextEditingController();
+  final TextEditingController urlImageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +45,19 @@ class RegisterPage extends StatelessWidget {
               obscureText: true,
               prefixIcon: const Icon(Icons.lock),
             ),
+            const SizedBox(height: 16),
+            EntryField(
+              label: 'Url Image',
+              placeholder: 'Enter your url image',
+              controller: urlImageController,
+              obscureText: false,
+              prefixIcon: const Icon(Icons.image),
+            ),
             const SizedBox(height: 24),
             SubmitButton(
               handleAction: handleRegister,
-              paramsController: [emailController, passwordController, nicknameController],
+              paramsController: [emailController, passwordController, nicknameController, urlImageController],
+              allowedEmpty: const [3],
             ),
           ],
         ),

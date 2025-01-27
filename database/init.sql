@@ -2,6 +2,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     nickname VARCHAR(255) NOT NULL UNIQUE,
+    url_image VARCHAR(255) DEFAULT 'https://avatarfiles.alphacoders.com/370/370782.jpg',
     password VARCHAR(255) NOT NULL
 );
 

@@ -4,7 +4,7 @@ import 'package:mobile/components/navigation.dart';
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
   bool isHomeRoute(BuildContext context) {
-    return ModalRoute.of(context)?.settings.name == '/';
+    return ModalRoute.of(context)?.settings.name == '/home';
   }
 
   bool isLoginRoute(BuildContext context) {
@@ -23,7 +23,7 @@ class NavBar extends StatelessWidget {
           IconButton(
             icon: isHomeRoute(context) ? const Icon(Icons.home) : const Icon(Icons.home_outlined),
             onPressed: () {
-              pushAndRemoveUntil('/', context);
+              pushAndRemoveUntil('/home', context);
             },
           ),
           IconButton(

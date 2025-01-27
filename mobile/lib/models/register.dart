@@ -2,11 +2,13 @@ class Register {
   final String userMail;
   final String userNickname;
   final String userPassword;
+  final String urlImage;
 
   Register({
     required this.userMail,
     required this.userNickname,
     required this.userPassword,
+    required this.urlImage,
   });
 
   Map<String, dynamic> toJson() {
@@ -14,6 +16,7 @@ class Register {
       'email': userMail,
       'username': userNickname,
       'password': userPassword,
+      'url_image': urlImage,
     };
   }
 }

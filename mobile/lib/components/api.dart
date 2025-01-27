@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 
-Future<(int, String)> sendData<T>(T data, String apiUrl) async {
+Future<(int, String)> sendData<T>(T data, String apiUrl, {String token = ""}) async {
   final url = Uri.parse(apiUrl);
+
   final headers = {'Content-Type': 'application/json'};
+  if (token != "") headers.addEntries([MapEntry('Authorization', 'Bearer $token')]);
 
   try {
     final body = json.encode(data);
